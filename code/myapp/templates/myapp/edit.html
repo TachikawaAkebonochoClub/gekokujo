@@ -1,0 +1,11 @@
+{% extends './base.html' %}
+{% load bootstrap4 %}
+
+{% block app %}
+    <form action='{% url "updateUser" userinfo.id  %}' method='post' class='form'>
+        {% csrf_token %}
+        {% bootstrap_form userForm %}
+        <button type='submit' class='btn btn-outline-primary'>更新</button>
+        <a href='{% url "showUsers" %}' class='btn btn-outline-secondary'>戻る</a>
+    </form>
+{% endblock %}
