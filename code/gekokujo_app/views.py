@@ -3,36 +3,20 @@ from django.http import HttpResponse
 from .models import ScoreTable
 
 # イニシャルとスコアを辞書に格納してrecords.htmlに返す
-def showRecords(request):
-    sql = "SELECT A.name,A.score
-           FROM ScoreTable A,
-           (SELECT id , max(score) score
-            FROM ScoreTable GROUP BY id)B
-           WHERE A.id = B.id and A.score = B.score;"
-    records_query_set = ScoreTable.objects.raw(sql)
-    records_list = list(records_query_set.values())
-    records_list = [
-        {'name': 'A', 'score': 100}, 
-        {'name': 'B', 'score': 200}
-        ]
-    ranking = []
-    if len(records_list):
-        scr = records_list['score']
-        rank = 1
-        for record in records_list:
-            if scr != record['score']:
-                rank += 1
-                scr = record['score']
-            rank_dic = {
-                'rank': rank,
-                'name': record.name, 
-                'score': record.score
-                }
-            ranking.append(rank_dic)
-    return ranking
 
+RAW_SQL = """
+    SELECT ScoreTable.*
+        FROM gekokujo_app_scoretable ScoreTable,
+             (SELECT id , max(score) score FROM gekokujo_app_scoretable GROUP BY id) B
+        WHERE ScoreTable.id = B.id 
+          and ScoreTable.score = B.score
+        ORDER BY ScoreTable.score DESC;
+"""
+
+def showRecords(request):
+    records_query_set = ScoreTable.objects.raw(RAW_SQL)
     context = {
-        'scoretable': ranking,
-        'count':records_query_set.count,
+        'records': records_query_set,
+        'count': len(records_query_set),
     }
-    return render(request, 'gekokujo_app.records.html',context)
+    return render(request, 'records.html',context)
