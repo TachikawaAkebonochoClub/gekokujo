@@ -5,11 +5,19 @@ from ..models import ScoreTable
 # イニシャルとスコアを辞書に格納してrecords.htmlに返す
 
 RAW_SQL = """
-         SELECT A.*
-            FROM gekokujo_app_scoretable A,
-                (SELECT user_id ,max(score) score FROM gekokujo_app_scoretable GROUP BY user_id)B
-            WHERE A.user_id = B.user_id and A.score = B.score
-            ORDER BY A.score DESC;
+          SELECT gekokujo_app_scoretable.* FROM gekokujo_app_scoretable,
+              (SELECT a.user_id, a.score, min(a.date) date
+                  FROM gekokujo_app_scoretable a,
+                      (SELECT user_id, max(score) score
+                          FROM gekokujo_app_scoretable
+                              GROUP BY user_id) b
+                      WHERE a.user_id = b.user_id
+                          and a.score = b.score
+                      GROUP BY a.user_id,a.score) y
+              WHERE gekokujo_app_scoretable.user_id = y.user_id
+                  and gekokujo_app_scoretable.score = y.score
+                  and gekokujo_app_scoretable.date = y.date
+              ORDER BY gekokujo_app_scoretable.score DESC;
 """
 
 def showRecords(request):
