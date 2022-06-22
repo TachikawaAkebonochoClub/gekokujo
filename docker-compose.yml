@@ -14,6 +14,7 @@ services:
     environment:
     - DEBUG=${DJANGO_DEBUG:-True}
     - ALLOWED_HOSTS=${DJANGO_ALLOWED_HOSTS:-*}
+    - ROOKIES_ID=${ROOKIES_ID}
     volumes:
       - ./code:/code
     ports:
