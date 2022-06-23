@@ -9,7 +9,5 @@ urlpatterns = [
     # 成績入力フォーム
     path('create', create_record_views.createRecord, name='createRecord'),
     # 成績登録処理
-    path('add', add_record_views.addRecord, name='addRecord'),
-    # 失敗
-    path('failure', failure_record_views.failure_record_views, name='failure_record')
+    path('add', add_record_views.addRecord, name='addRecord')
 ]
