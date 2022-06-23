@@ -12,7 +12,8 @@
         </thead>
         <tbody align="center"> 
             {% for record in scoretable %}
-            <tr>
+            <tr{% if record.rookie %} style="background-color: #ffeeee"{% endif %} >
+
                 <td>{{record.rank}}位</td>
                 <td>{{record.name}}</td>
                 <td>{{record.score}}点</td>
