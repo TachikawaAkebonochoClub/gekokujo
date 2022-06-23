@@ -38,7 +38,7 @@ def showRecords(request):
         records.append(
                 {'rank': rank,
                 'name': record.name,
-                'rookie': True if record.id == int(settings.ROOKIES_ID) else False ,
+                'rookie': True if record.user_id == int(settings.ROOKIES_ID) else False ,
                 'score': record.score})
     context = {
         'scoretable': records
