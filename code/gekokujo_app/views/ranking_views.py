@@ -37,6 +37,7 @@ def showRecords(request):
         records.append(
                 {'rank': rank,
                 'name': record.name,
+                'level': record.level,
                 'score': record.score})
     context = {
         'scoretable': records
