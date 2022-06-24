@@ -11,8 +11,8 @@
     <div class="form-group">
         {% csrf_token %}
         {% bootstrap_form RecordsForm %}
-        <button type='submit' class='btn btn-outline-primary'>決定</button>
-        <a href="{% url 'showRecords' %}" class='btn btn-outline-primary'>戻る</a>
+        <button type='submit' class='btn btn-outline-primary'>登録</button>
+        <a href="{% url 'showRecords' %}" class='btn btn-outline-primary'>キャンセル</a>
     </div>
 </form>
 {% endblock %}
