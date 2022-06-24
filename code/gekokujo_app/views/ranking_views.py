@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from ..models import ScoreTable
+from django.conf import settings
 
 # イニシャルとスコアを辞書に格納してrecords.htmlに返す
 
@@ -37,6 +38,7 @@ def showRecords(request):
         records.append(
                 {'rank': rank,
                 'name': record.name,
+                'rookie': True if record.user_id == int(settings.ROOKIES_ID) else False ,
                 'level': record.level,
                 'score': record.score})
     context = {
