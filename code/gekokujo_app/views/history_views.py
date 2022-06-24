@@ -7,7 +7,7 @@ from django.conf import settings
 
 def showHistory(request):
     rookie = settings.ROOKIES_ID
-    records_query_set = ScoreTable.objects.filter(user_id = rookie).order_by("date")
+    records_query_set = ScoreTable.objects.filter(user_id = rookie).order_by("date").reverse()
     context = {
         'scoretable': records_query_set
     }

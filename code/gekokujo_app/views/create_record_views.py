@@ -8,6 +8,6 @@ from ..forms import RecordsForm
 def createRecord(request):
     recordsform = RecordsForm()
     context = {
-        'RecordsForm': recordsform
+        'scoretable': recordsform
     }
     return render(request, 'create.html', context)

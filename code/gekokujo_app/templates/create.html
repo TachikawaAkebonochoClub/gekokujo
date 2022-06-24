@@ -2,17 +2,13 @@
 {% load bootstrap4 %}
 {% block app %}
 <h1>成績登録</h1>
-<!-- <ul>
-    {% for message in self.cleaned_data %}
-    <div>{{ message }}</div>
-    {% endfor %}
-</ul> -->
+
 <form action='{% url "addRecord" %}' method='post' class='form'>
     <div class="form-group">
         {% csrf_token %}
-        {% bootstrap_form RecordsForm %}
-        <button type='submit' class='btn btn-outline-primary'>決定</button>
-        <a href="{% url 'showRecords' %}" class='btn btn-outline-primary'>戻る</a>
+        {% bootstrap_form scoretable %}
+        <button type='submit' class='btn btn-outline-primary'>登録</button>
+        <a href="{% url 'showRecords' %}" class='btn btn-outline-primary'>キャンセル</a>
     </div>
 </form>
 {% endblock %}

@@ -4,18 +4,17 @@ from django.utils import timezone
 
 # Create your models here.
 
-
 class ScoreTable(models.Model):
 
     courses = (
-        (100, 'おやじギャグ'),
-        (200, 'お嬢様ことば'),
-        (300, '早口ことば'),
-        (400, '回文'),
-        (500, '缶コーヒーのコピー'),
-        (600, '時代劇のセリフ'),
-        (700, '元気が出ることば'),
-        (800, 'アニメタイトル'),
+    (100,'おやじギャグ'),
+    (200,'お嬢様ことば'),
+    (300,'早口ことば'),
+    (400,'回文'),
+    (500,'缶コーヒーのコピー'),
+    (600,'時代劇のセリフ'),
+    (700,'元気が出ることば'),
+    (800,'アニメタイトル'),
     )
 
     id = models.AutoField(
@@ -28,7 +27,7 @@ class ScoreTable(models.Model):
     )
     name = models.CharField(
         verbose_name='イニシャル',
-        max_length=30,
+        max_length=30
     )
     date = models.DateField(
         verbose_name='実施日',
@@ -58,14 +57,14 @@ class ScoreTable(models.Model):
     )
     read = models.DecimalField(
         verbose_name='WPM',
-        max_digits=5, decimal_places=2
+        max_digits=5,decimal_places=2
     )
     rate = models.DecimalField(
         verbose_name='正確率',
         max_digits=5,
         decimal_places=2,
         validators=[validators.MinValueValidator(0.01),
-                    validators.MaxValueValidator(100.00)]
+        validators.MaxValueValidator(100.00)]
     )
     weakness = models.CharField(
         verbose_name='苦手キー',

@@ -21,50 +21,17 @@ class RecordsForm(forms.ModelForm):
             'rate': '正確率',
             'weakness': '苦手キー',
         }
-
-    #     error_messages = {
-    #         'user_id': {
-    #             'required': 'user_idが入力されていません'
-    #         },
-    #         'name': {
-    #             'required': 'イニシャルが入力されていません'
-    #         },
-    #         'date': {
-    #             'required': '実施日が入力されていません'
-    #         },
-    #         'course': {
-    #             'required': 'コースが入力されていません'
-    #         },
-    #         'score': {
-    #             'required': 'スコアが入力されていません'
-    #         },
-    #         'level': {
-    #             'required': 'レベルが入力されていません'
-    #         },
-    #         'time': {
-    #             'required': '入力時間が入力されていません'
-    #         },
-    #         'count': {
-    #             'required': '入力文字数が入力されていません'
-    #         },
-    #         'miss': {
-    #             'required': 'ミス入力数が入力されていません'
-    #         },
-    #         'read': {
-    #             'required': 'WPMが入力されていません'
-    #         },
-    #         'rate': {
-    #             'required': '正確率が入力されていません'
-    #         },
-    #         'weakness': {
-    #             'required': '苦手キーが入力されていません'
-    #         },
-    #     }
-
-    # def clean(self):
-    #     if self.cleaned_data.get('name') == "":
-    #         raise forms.ValidationError('No name!')
-    #     return self.cleaned_data
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': '必須:山田太郎の場合→T.Y'}),
+            'score': forms.TextInput(attrs={'placeholder': '必須:スコアを入力してください'}),
+            'level': forms.TextInput(attrs={'placeholder': '必須:レベルを入力してください'}),
+            'time': forms.TextInput(attrs={'placeholder': '必須:時:分:秒.ミリ秒で入力してください'}),
+            'count': forms.TextInput(attrs={'placeholder': '必須:入力文字数を入力してください'}),
+            'miss': forms.TextInput(attrs={'placeholder': '必須:ミス入力数を入力してください'}),
+            'read': forms.TextInput(attrs={'placeholder': '必須:WPMを入力してください'}),
+            'rate': forms.TextInput(attrs={'placeholder': '必須:正確率を入力してください'}),
+            'weakness': forms.TextInput(attrs={'placeholder': '苦手キーを入力してください(0の場合未入力)'}),
+        }
 
 
 class form(forms.Form):
@@ -74,7 +41,7 @@ class form(forms.Form):
     course = forms.ChoiceField(required=True, initial=200)
     score = forms.IntegerField(required=True)
     level = forms.CharField(required=True, max_length=30)
-    time = forms.TimeField(required=True, input_formats=['%M:%S.%f'])
+    time = forms.TimeField(required=True)
     count = forms.IntegerField(required=True)
     miss = forms.IntegerField(required=True)
     read = forms.DecimalField(required=True, max_digits=5, decimal_places=2)
