@@ -1,14 +1,21 @@
 {% extends './base.html' %}
 {% block app %}
-    <a href="{% url 'showRecords' %}" class='btn btn-outline-primary'>ランキングに戻る</a>
+    {% for record in scoretable %}
+    	{% if forloop.first %}
+            <h1>{{ record.name }}さんの成長記録</h1>
+    	{% endif %}
+    {% endfor %}
+    <div class="mb-3">
+        <a href="{% url 'showRecords' %}" class='btn btn-outline-primary'>ランキングに戻る</a>
+    </div>
     <table class="table table-striped table table-bordered">
-    <caption>{{name}}</caption>
+    </caption>
        <thead>
             <tr>
                 <th >実施日</th>
                 <th >スコア</th>
                 <th >レベル</th>
-				<th >入力時間</th>
+                <th >入力時間(分:秒.ミリ秒)</th>
                 <th >入力文字数</th>
                 <th >ミス入力数</th>
                 <th >WPM</th>
@@ -22,7 +29,7 @@
                 <td>{{record.date}}</td>
                 <td>{{record.score}}</td>
                 <td>{{record.level}}</td>
-                <td>{{record.time|time:"m分s秒u"}}</td>
+                <td>{{record.time|time:"i:s.u"}}</td>
                 <td>{{record.count}}</td>
                 <td>{{record.miss}}</td>
                 <td>{{record.read}}</td>
