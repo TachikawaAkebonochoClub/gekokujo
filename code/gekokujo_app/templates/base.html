@@ -10,34 +10,23 @@
             integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
         <style>
-            body {
-                padding-top: 50px;
-            }
-
             .image {
                 margin: auto;
             }
         </style>
-        <nav class="navbar navbar-light bg-light fixed-top">
-        </nav>
+        <table class="image">
+            <tr>
+                <a href="">
+                    <td><a class='navbar-brand' href='{% url "showRecords" %}'><img src="./static/title_name.png"
+                                height="140" alt="ランキング一覧" style="display: block; margin: auto;"></a></td>
+                    <td><img src=" ./static/title_image.png" height="140" alt=""
+                            style="display: block; margin-left: auto;"></td>
+                </a>
+            </tr>
+        </table>
     </head>
 
     <body>
-        <header>
-            <table class="image">
-                <tr>
-                    <h1>
-                        <a href="">
-                            <td><a class='navbar-brand' href='{% url "showRecords" %}'><img
-                                        src="./static/title_name.png" height="140" alt="ランキング一覧"
-                                        style="display: block; margin: auto;"></a></td>
-                            <td><img src=" ./static/title_image.png" height="140" alt=""
-                                    style="display: block; margin-left: auto;"></td>
-                        </a>
-                    </h1>
-                </tr>
-            </table>
-        </header>
         <div class='container'>
             {% block app %}
             {% endblock %}
