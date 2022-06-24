@@ -21,9 +21,6 @@ class RecordsForm(forms.ModelForm):
             'rate': '正確率',
             'weakness': '苦手キー',
         }
-
-        # プレースホルダー
-
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': '必須:山田太郎の場合→T.Y'}),
             'score': forms.TextInput(attrs={'placeholder': '必須:スコアを入力してください'}),
@@ -35,8 +32,6 @@ class RecordsForm(forms.ModelForm):
             'rate': forms.TextInput(attrs={'placeholder': '必須:正確率を入力してください'}),
             'weakness': forms.TextInput(attrs={'placeholder': '苦手キーを入力してください(0の場合未入力)'}),
         }
-
-# バリデーション指定
 
 
 class form(forms.Form):
