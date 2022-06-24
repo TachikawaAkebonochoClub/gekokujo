@@ -2,11 +2,7 @@
 {% load bootstrap4 %}
 {% block app %}
 <h1>成績登録</h1>
-<!-- <ul>
-    {% for message in self.cleaned_data %}
-    <div>{{ message }}</div>
-    {% endfor %}
-</ul> -->
+
 <form action='{% url "addRecord" %}' method='post' class='form'>
     <div class="form-group">
         {% csrf_token %}

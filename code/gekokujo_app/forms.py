@@ -21,61 +21,22 @@ class RecordsForm(forms.ModelForm):
             'rate': '正確率',
             'weakness': '苦手キー',
         }
+
+        # プレースホルダー
+
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': '山田太郎の場合→T.Y'}),
-            'score': forms.TextInput(attrs={'placeholder': 'スコアを入力してください'}),
-            'level': forms.TextInput(attrs={'placeholder': 'レベルを入力してください'}),
-            'time': forms.TextInput(attrs={'placeholder': '時:分:秒.ミリ秒で入力してください'}),
-            'count': forms.TextInput(attrs={'placeholder': '入力文字数を入力してください'}),
-            'miss': forms.TextInput(attrs={'placeholder': 'ミス入力数を入力してください'}),
-            'read': forms.TextInput(attrs={'placeholder': 'WPMを入力してください'}),
-            'rate': forms.TextInput(attrs={'placeholder': '正確率を入力してください'}),
-            'weakness': forms.TextInput(attrs={'placeholder': '苦手キーを入力してください'}),
+            'name': forms.TextInput(attrs={'placeholder': '必須:山田太郎の場合→T.Y'}),
+            'score': forms.TextInput(attrs={'placeholder': '必須:スコアを入力してください'}),
+            'level': forms.TextInput(attrs={'placeholder': '必須:レベルを入力してください'}),
+            'time': forms.TextInput(attrs={'placeholder': '必須:時:分:秒.ミリ秒で入力してください'}),
+            'count': forms.TextInput(attrs={'placeholder': '必須:入力文字数を入力してください'}),
+            'miss': forms.TextInput(attrs={'placeholder': '必須:ミス入力数を入力してください'}),
+            'read': forms.TextInput(attrs={'placeholder': '必須:WPMを入力してください'}),
+            'rate': forms.TextInput(attrs={'placeholder': '必須:正確率を入力してください'}),
+            'weakness': forms.TextInput(attrs={'placeholder': '苦手キーを入力してください(0の場合未入力)'}),
         }
 
-    #     error_messages = {
-    #         'user_id': {
-    #             'required': 'user_idが入力されていません'
-    #         },
-    #         'name': {
-    #             'required': 'イニシャルが入力されていません'
-    #         },
-    #         'date': {
-    #             'required': '実施日が入力されていません'
-    #         },
-    #         'course': {
-    #             'required': 'コースが入力されていません'
-    #         },
-    #         'score': {
-    #             'required': 'スコアが入力されていません'
-    #         },
-    #         'level': {
-    #             'required': 'レベルが入力されていません'
-    #         },
-    #         'time': {
-    #             'required': '入力時間が入力されていません'
-    #         },
-    #         'count': {
-    #             'required': '入力文字数が入力されていません'
-    #         },
-    #         'miss': {
-    #             'required': 'ミス入力数が入力されていません'
-    #         },
-    #         'read': {
-    #             'required': 'WPMが入力されていません'
-    #         },
-    #         'rate': {
-    #             'required': '正確率が入力されていません'
-    #         },
-    #         'weakness': {
-    #             'required': '苦手キーが入力されていません'
-    #         },
-    #     }
-
-    # def clean(self):
-    #     if self.cleaned_data.get('name') == "":
-    #         raise forms.ValidationError('No name!')
-    #     return self.cleaned_data
+# バリデーション指定
 
 
 class form(forms.Form):
