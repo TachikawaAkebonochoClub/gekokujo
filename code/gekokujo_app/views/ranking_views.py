@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from ..models import ScoreTable
 from django.conf import settings
 
-# イニシャルとスコアを辞書に格納してrecords.htmlに返す
+# ランキングを生成してrecords.htmlに返す
 
 RAW_SQL = """
           SELECT gekokujo_app_scoretable.* FROM gekokujo_app_scoretable,
@@ -23,7 +23,7 @@ RAW_SQL = """
 
 def showRecords(request):
     records_query_set = ScoreTable.objects.raw(RAW_SQL)
-
+    
     records = []
     scr = 0
     rank = 0
