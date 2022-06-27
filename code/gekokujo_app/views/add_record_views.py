@@ -1,19 +1,16 @@
-from django.shortcuts import redirect
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from ..models import ScoreTable
 from ..forms import RecordsForm
 
 # 成績登録処理
 
-
+# formから取得したデータをDBに保存し、ランキング一覧に戻る
 def addRecord(request):
     if request.method == 'POST':
         recordsform = RecordsForm(request.POST)
-        if recordsform.is_valid():
-            print('OK')
-            recordsform.save()
+        if not recordsform.is_valid():
+            return render(request, 'save_error.html')
         else:
-            print(recordsform.errors.as_text())
-
-    return redirect('showRecords')
-    # shoeRecordsにリダイレクト
+            recordsform.save()
+            return redirect('showRecords')
