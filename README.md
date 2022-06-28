@@ -1,7 +1,7 @@
 # 下剋上
 
 下剋上は[e-typing](https://www.e-typing.ne.jp/)でのタイピング成績の登録、ランキング、成長記録の表示をさせるWebアプリケーションです。<br>
-新入１名のキーボード演習の日々の成績の推移の確認すること、また先輩の成績と比較をすることを目的として作成しました。
+新人１名のキーボード演習の日々の成績の推移の確認すること、また先輩の成績と比較をすることを目的として作成しました。
 
 ## 環境
 
@@ -9,22 +9,26 @@
 - Docker 20.10.14
 - docker-compose 1.29.2
 
+- PostgreSQL 14.2
+- Django 
+- Python
+
 ## 前提条件
 
 - docker使用
 - DBはPostgreSQL
 
-## 環境構築
+## 初期起動
 
 1. ソースコードダウンロード<br>
   `git clone git@github.com:TachikawaAkebonochoClub/gekokujo.git`
 2. 環境に応じて.envファイル作成<br>
-  ```
-  DJANGO_ALLOWED_HOSTS=アクセスを許可するホスト名
-  DJANGO_DEBUG=任意（True or False）
-  DOCKER_DJANGO_PORT=Djangoコンテナのポート番号
-  ROOKIES_ID=成長記録を確認したいuser_id
-  ```
+    ```
+    DJANGO_ALLOWED_HOSTS=アクセスを許可するホスト名
+    DJANGO_DEBUG=任意（True or False）
+    DOCKER_DJANGO_PORT=Djangoコンテナのポート番号
+    ROOKIES_ID=成長記録を確認したいuser_id
+    ```
 
     環境を切り分ける場合
     1. docker-compose に読ませる `.env` を切り替える
@@ -55,6 +59,20 @@
         ports:
           - "${DOCKER_DJANGO_PORT}:8888"
     ```
+    ## 開発
+      ```
+      $ cp env.dev .env
+      $ cat .env # or vi .env
+      $ docker-compose ...
+      ```
+
+      ## 公開
+      ```
+      $ cp env.prod .env
+      $ cat .env # or vi .env
+      $ docker-compose ...
+      ```
+
 
 
 3. DB側のコンテナを起動<br>
@@ -79,22 +97,16 @@
 
 ![image](https://user-images.githubusercontent.com/107466011/175890119-c21fabac-4036-4ead-ad0c-7cd7031d8d2f.png)
 
+## 初期データ登録
 
-
-## 開発
-```
-$ cp env.dev .env
-$ cat .env # or vi .env
-$ docker-compose ...
-```
-
-## 公開
-```
-$ cp env.prod .env
-$ cat .env # or vi .env
-$ docker-compose ...
-```
-
+1. sample_data.csvファイルをDBのコンテナにコピーする<br>
+  `docker cp ./data/sample_data.csv gekokujo_db:tmp/`
+2. DB側のコンテナに入る<br>
+  `docker exec -it gekokujo_db bash`
+3. postgresに接続<br>
+  `psql -U postgres`
+4. sample_data.csvファイルからscoretableにデータをコピーする
+`\copy gekokujo_app_scoretable (user_id,name,date,course,score,level,time,count,miss,read,rate,weakness) from '/tmp/initial_data.csv' DELIMITER ',' CSV HEADER encoding 'sjis';`
 
 ## 機能
 
