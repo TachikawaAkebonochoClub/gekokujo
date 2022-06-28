@@ -7,7 +7,7 @@
     <div class="form-group">
         {% csrf_token %}
         {% bootstrap_form scoretable %}
-        <!-- <button type='submit' class='btn btn-outline-primary'>登録</button> -->
+        <button type='submit' class='btn btn-outline-primary'>登録</button>
         <a href="{% url 'showRecords' %}" class='btn btn-outline-primary'>キャンセル</a>
     </div>
 </form>
