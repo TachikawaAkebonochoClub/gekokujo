@@ -1,28 +1,32 @@
-# 下剋上
+# はじめに
 
-下剋上は[e-typing](https://www.e-typing.ne.jp/)でのタイピング成績の登録、ランキング、成長記録の表示をさせるWebアプリケーションです。<br>
-新人１名のキーボード演習の日々の成績の推移の確認すること、また先輩の成績と比較をすることを目的として作成しました。
+下剋上は[e-typing](https://www.e-typing.ne.jp/)でのタイピング成績の登録、ランキング表示、成長記録の確認ができるWebアプリケーションです。<br>
+新人１名のキーボード演習の日々の成績の推移の確認すること、また先輩の成績と比較をすることを目的として作成しました。<br>
+新人のみ成績の追加登録が可能なように、現バージョンでは直接成績登録用のURLにアクセスしない限り成績入力フォームの表示ができないようになっています。（改善方法検討中）
 
-## 環境
-
+# 環境
+## 実行環境
 - Linux 5.4.0
 - Docker 20.10.14
 - docker-compose 1.29.2
 
+## コンテナ内環境
 - PostgreSQL 14.2
-- Django 
-- Python
+- Django 2.1.3
+- Python 3.10.4
 
-## 前提条件
+# 前提条件
 
-- docker使用
-- DBはPostgreSQL
+- 実行環境構築済み
 
-## 初期起動
+# 初期起動
 
 1. ソースコードダウンロード<br>
-  `git clone git@github.com:TachikawaAkebonochoClub/gekokujo.git`
+  ```
+  git clone git@github.com:TachikawaAkebonochoClub/gekokujo.git
+  ```
 2. 環境に応じて.envファイル作成<br>
+    - .envの構成
     ```
     DJANGO_ALLOWED_HOSTS=アクセスを許可するホスト名
     DJANGO_DEBUG=任意（True or False）
@@ -30,49 +34,21 @@
     ROOKIES_ID=成長記録を確認したいuser_id
     ```
 
-    環境を切り分ける場合
-    1. docker-compose に読ませる `.env` を切り替える
-    2. Django`settings.py` は環境変数から取得する（.envは読まない）
-    3. Django`settings.py` への環境変数はdocker-compose.yaml 内で引き渡す
-
-    - .env
-    ```bash
-
-    DJANGO_DEBUG=False
-    DJANGO_ALLOWED_HOSTS="edo.castle.gq"
-    DOCKER_DJANGO_PORT=18888
-    ```
-    - docker-compose.yaml
-    ```yaml
-    version: "3.3"
-    services:
-    [...]
-      web:
-        build: ./docker
-        command: python manage.py runserver 0.0.0.0:8888
-        environment:
-        - DOCKER_DJANGO_PORT="${WEB_PORT:-8888}
-        - DEBUG=${DEBUG:-True}
-        - ALLOWED_HOSTS=${ALLOWED_HOSTS:-*}
-        volumes:
-          - ./code:/code
-        ports:
-          - "${DOCKER_DJANGO_PORT}:8888"
-    ```
-    ## 開発
+    - 環境を切り分ける場合
+      1. docker-compose に読ませる `.env` を切り替える
+        - 開発 : env.dev
+        - 本番 : env.prod
+      2. Django`settings.py` は環境変数から取得する（`.env`は読まない）
+      3. Django`settings.py` への環境変数はdocker-compose.yaml 内で引き渡す
+      
+      - 開発用か本番用のenvファイルを適用する
       ```
-      $ cp env.dev .env
-      $ cat .env # or vi .env
-      $ docker-compose ...
+      cp env.devもしくはenv.prod .env
       ```
-
-      ## 公開
+      - 必要に応じて編集する
       ```
-      $ cp env.prod .env
-      $ cat .env # or vi .env
-      $ docker-compose ...
+      vi .env
       ```
-
 
 
 3. DB側のコンテナを起動<br>
