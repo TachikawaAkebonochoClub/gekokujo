@@ -1,10 +1,21 @@
+# 目次
+
+- [はじめに](#はじめに)
+- [機能](#機能)
+- [環境](#環境)
+   - [実行環境](#実行環境)
+   - [コンテナ内環境](#コンテナ内環境)
+- [前提条件](#前提条件)
+- [初期起動](#初期起動)
+- [サンプルデータ登録](#サンプルデータ登録任意)
+
 # はじめに
 
 下剋上は[e-typing](https://www.e-typing.ne.jp/)でのタイピング成績の登録、ランキング表示、成長記録の確認ができるWebアプリケーションです。<br>
 新人１名のキーボード演習の日々の成績の推移の確認すること、また先輩の成績と比較をすることを目的として作成しました。<br>
 新人のみ成績の追加登録が可能なように、現バージョンでは直接成績登録用のURLにアクセスしない限り成績入力フォームの表示ができないようになっています。（改善方法検討中）
 
-## 機能
+# 機能
 
 - 登録
   - 成績登録機能
@@ -35,46 +46,56 @@
 # 初期起動
 
 1. ソースコードダウンロード<br>
-  ```
-  git clone git@github.com:TachikawaAkebonochoClub/gekokujo.git
-  ```
+    ```
+    git clone git@github.com:TachikawaAkebonochoClub/gekokujo.git
+    ```
 2. 環境に応じて.envファイル作成<br>
     - .envの構成
-    ```
-    DJANGO_ALLOWED_HOSTS=アクセスを許可するホスト名
-    DJANGO_DEBUG=任意（True or False）
-    DOCKER_DJANGO_PORT=Djangoコンテナのポート番号
-    ROOKIES_ID=成長記録を確認したいuser_id
-    ```
+      ```
+      DJANGO_ALLOWED_HOSTS=アクセスを許可するホスト名
+      DJANGO_DEBUG=任意（True or False）
+      DOCKER_DJANGO_PORT=Djangoコンテナのポート番号
+      ROOKIES_ID=成長記録を確認したいuser_id
+      ```
 
     - 環境を切り分ける場合
       1. docker-compose に読ませる `.env` を切り替える
-        - 開発 : env.dev
-        - 本番 : env.prod
+          - 開発 : env.dev
+          - 本番 : env.prod
       2. Django`settings.py` は環境変数から取得する（`.env`は読まない）
       3. Django`settings.py` への環境変数はdocker-compose.yaml 内で引き渡す
       
-      - 開発用か本番用のenvファイルを適用する
-      ```
-      cp env.devもしくはenv.prod .env
-      ```
-      - 必要に応じて編集する
-      ```
-      vi .env
-      ```
+          - 開発用か本番用のenvファイルを適用する
+            ```
+            cp env.devもしくはenv.prod .env
+            ```
+          - 必要に応じて編集する
+            ```
+            vi .env
+            ```
 
 3. DB側のコンテナを起動<br>
-  `docker-compose up -d db`
+    ```
+    docker-compose up -d db
+    ```
 4. Django側のコンテナを起動<br>
-  `docker-compose up -d web`
+    ```
+    docker-compose up -d web
+    ```
 5. アプリ側のコンテナに入る<br>
-  `docker exec -it gekokujo_web bash`
+    ```
+    docker exec -it gekokujo_web bash
+    ```
 
 6. DBにテーブル作成<br>
     1. gekokujo_appにマイグレーションファイルを作成<br>
-      `python manage.py makemigrations gekokujo_app`
+        ```
+        python manage.py makemigrations gekokujo_app
+        ```
     2. マイグレーションファイルをデータベースに適用<br>
-      `python manage.py migrate`
+        ```
+        python manage.py migrate
+        ```
 
 
 7. `http://実行場所のIP:.envで指定したポート番号`にアクセス(Chrome/Edge)<br>
@@ -83,16 +104,26 @@
 ![image](https://user-images.githubusercontent.com/107466011/175890119-c21fabac-4036-4ead-ad0c-7cd7031d8d2f.png)
 
 8. コンテナの停止<br>
-  `docker-compose down`
+    ```
+    docker-compose down
+    ```
 
-## サンプルデータ登録（任意）
+# サンプルデータ登録（任意）
 
 1. sample_data.csvファイルをDBのコンテナにコピーする<br>
-  `docker cp ./data/sample_data.csv gekokujo_db:tmp/`
+    ```
+    docker cp ./data/sample_data.csv gekokujo_db:tmp/
+    ```
 2. DB側のコンテナに入る<br>
-  `docker exec -it gekokujo_db bash`
+    ```
+    docker exec -it gekokujo_db bash
+    ```
 3. postgresに接続<br>
-  `psql -U postgres`
+    ```
+    psql -U postgres
+    ```
 4. sample_data.csvファイルからscoretableにデータをコピーする<br>
-`\copy gekokujo_app_scoretable (user_id,name,date,course,score,level,time,count,miss,read,rate,weakness) from '/tmp/initial_data.csv' DELIMITER ',' CSV HEADER encoding 'sjis';`
+    ```
+    \copy gekokujo_app_scoretable (user_id,name,date,course,score,level,time,count,miss,read,rate,weakness) from '/tmp/initial_data.csv' DELIMITER ',' CSV HEADER encoding 'sjis';
+    ```
 
