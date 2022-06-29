@@ -4,6 +4,19 @@
 新人１名のキーボード演習の日々の成績の推移の確認すること、また先輩の成績と比較をすることを目的として作成しました。<br>
 新人のみ成績の追加登録が可能なように、現バージョンでは直接成績登録用のURLにアクセスしない限り成績入力フォームの表示ができないようになっています。（改善方法検討中）
 
+## 機能
+
+- 登録
+  - 成績登録機能
+    - 利用者が、成績登録時に成績登録画面からタイピング結果から取得できる全項目を登録可能
+    
+
+- 閲覧
+  - ランキング一覧機能（トップ画面）
+    - 閲覧者が、登録されている全員のベスト成績での最新ランキング結果を確認できる
+  - 成長記録確認機能
+    - 指定User_idの全記録を日付が新しい順に見ることができる
+
 # 環境
 ## 実行環境
 - Linux 5.4.0
@@ -50,30 +63,29 @@
       vi .env
       ```
 
-
 3. DB側のコンテナを起動<br>
   `docker-compose up -d db`
 4. Django側のコンテナを起動<br>
-  `docker-compose up -d`<br>
-  もしくは<br>
   `docker-compose up -d web`
 5. アプリ側のコンテナに入る<br>
   `docker exec -it gekokujo_web bash`
 
-
 6. DBにテーブル作成<br>
-    - gekokujo_appにマイグレーションファイルを作成<br>
+    1. gekokujo_appにマイグレーションファイルを作成<br>
       `python manage.py makemigrations gekokujo_app`
-    - マイグレーションファイルをデータベースに適用<br>
+    2. マイグレーションファイルをデータベースに適用<br>
       `python manage.py migrate`
 
 
-7. `http://実行場所のIP:.envで指定したポート番号`にアクセス<br>
+7. `http://実行場所のIP:.envで指定したポート番号`にアクセス(Chrome/Edge)<br>
   以下の画面表示であれば正常
 
 ![image](https://user-images.githubusercontent.com/107466011/175890119-c21fabac-4036-4ead-ad0c-7cd7031d8d2f.png)
 
-## 初期データ登録
+8. コンテナの停止<br>
+  `docker-compose down`
+
+## サンプルデータ登録（任意）
 
 1. sample_data.csvファイルをDBのコンテナにコピーする<br>
   `docker cp ./data/sample_data.csv gekokujo_db:tmp/`
@@ -81,36 +93,6 @@
   `docker exec -it gekokujo_db bash`
 3. postgresに接続<br>
   `psql -U postgres`
-4. sample_data.csvファイルからscoretableにデータをコピーする
+4. sample_data.csvファイルからscoretableにデータをコピーする<br>
 `\copy gekokujo_app_scoretable (user_id,name,date,course,score,level,time,count,miss,read,rate,weakness) from '/tmp/initial_data.csv' DELIMITER ',' CSV HEADER encoding 'sjis';`
 
-## 機能
-
-- 登録
-  - 成績登録機能
-    - 利用者が、成績登録時に成績登録画面からタイピング結果でわかる項目を登録することができる
-    
-
-- 閲覧
-  - ランキング一覧機能（トップ画面）
-    - 閲覧者が登録されている全員のベスト成績での最新ランキング結果を確認できる
-  - 成長記録確認機能
-    - 指定User_idの全記録を日付が新しい順に見ることができる
-
-## デモ
-
-- ランキング一覧画面
-
-![image](https://user-images.githubusercontent.com/107466011/175880752-ae488379-899c-4fb0-bdf0-de830e7d670a.png)
-
-- 成績登録画面
-
-![image](https://user-images.githubusercontent.com/107466011/175881059-b1155db2-a881-4ec4-bd40-42890093dec9.png)
-
-![image](https://user-images.githubusercontent.com/107466011/175881221-90f4f65c-802f-4d64-8968-008e3e4ec22d.png)
-
-- 成長記録画面
-
-![image](https://user-images.githubusercontent.com/107466011/175881424-057a8b15-d02a-4aca-9558-3597f6ee5324.png)
-
-※入力されているデータは仮のものです。
