@@ -30,7 +30,7 @@ class RecordsForm(forms.ModelForm):
             'miss': forms.TextInput(attrs={'placeholder': '必須:ミス入力数を入力してください'}),
             'read': forms.TextInput(attrs={'placeholder': '必須:WPMを入力してください'}),
             'rate': forms.TextInput(attrs={'placeholder': '必須:正確率を入力してください'}),
-            'weakness': forms.TextInput(attrs={'placeholder': '必須:苦手キーを入力してください(ない場合0)'}),
+            'weakness': forms.TextInput(attrs={'placeholder': '苦手キーを入力してください(ない場合は未入力)'}),
         }
 
 

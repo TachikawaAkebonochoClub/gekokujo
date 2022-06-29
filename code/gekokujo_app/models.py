@@ -70,4 +70,5 @@ class ScoreTable(models.Model):
     weakness = models.CharField(
         verbose_name='苦手キー',
         max_length=10,
+        blank=True
     )
