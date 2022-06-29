@@ -105,7 +105,7 @@
 
 8. コンテナの停止<br>
     ```
-    docker-compose down
+    docker-compose stop
     ```
 
 # サンプルデータ登録（任意）
