@@ -103,7 +103,7 @@
 7. `http://実行場所のIP:.envで指定したポート番号`にアクセス(Chrome/Edge)<br>
   以下の画面表示であれば正常
 
-![image](https://user-images.githubusercontent.com/107466011/175890119-c21fabac-4036-4ead-ad0c-7cd7031d8d2f.png)
+![image](https://user-images.githubusercontent.com/107466011/176812910-f33cf072-37a5-4426-be90-a666ca2ed0a4.png)
 
 8. コンテナの停止<br>
     ```
