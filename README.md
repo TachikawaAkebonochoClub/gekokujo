@@ -31,6 +31,10 @@
     - 指定User_idの全記録を日付が新しい順に見ることができる
 
 # 環境
+
+![architecture](https://user-images.githubusercontent.com/86756223/176816200-720e9d63-fccf-463a-9e7e-6d5e4d67b7e3.png)
+
+
 ## 実行環境
 - Linux 5.4.0
 - Docker 20.10.14
