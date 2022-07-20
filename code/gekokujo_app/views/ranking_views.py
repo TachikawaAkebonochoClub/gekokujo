@@ -1,4 +1,5 @@
 from optparse import Values
+import re
 from django.shortcuts import render
 from django.http import HttpResponse
 from ..models import ScoreTable
@@ -31,6 +32,25 @@ def showRecords(request):
     context = {
         'scoretable': records
     }
+
+# def get_course():
+#     # コースを選択する
+#     courses = ScoreTable.courses
+#     course = list(courses.keys())
+#     all_course = [('-----', '---コースの選択---')]
+#     for c in course:
+#         all_course.append((c, c))
+#     return all_course
+
+
+# def return_data_by_course(course):
+#     # コースの選択を取得
+#     course_date = all_data[courses]
+
+# def getCourse(request):
+#     course = request.POST.get('course')
+#     courses = return_data_by_course(course)
+#     return
 
 # def showRecords(request):
     # records_query_set = ScoreTable.objects.raw(RAW_SQL)

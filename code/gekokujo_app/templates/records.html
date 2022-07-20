@@ -9,8 +9,9 @@
     <a href="{% url 'showHistory' %}" class='btn btn-outline-primary'>成長記録</a>
     <!-- <a href="{% url 'createRecord' %}" class='btn btn-outline-primary'>成績登録</a> -->
 </div>
-<select name="choice">
-    <option value="100" selected>おやじギャグ</option>
+<select name="course">
+    <option value="">すべて</option>
+    <option value="100">おやじギャグ</option>
     <option value="200">お嬢様ことば</option>
     <option value="300">早口ことば</option>
     <option value="400">回文</option>
@@ -18,7 +19,9 @@
     <option value="600">時代劇のセリフ</option>
     <option value="700">元気が出ることば</option>
     <option value="800">アニメタイトル</option>
+    <?= $course?>
 </select>
+<button type='submit' class='btn btn-outline-primary'>決定</button>
 <table class="table table-striped table table-bordered">
     <thead align="center">
         <tr>
