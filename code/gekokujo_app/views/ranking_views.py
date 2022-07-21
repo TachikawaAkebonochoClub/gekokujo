@@ -25,13 +25,26 @@ RAW_SQL = """
 """
 
 
+# def getCourse(request):
+
+#     courses = ScoreTable.objects.distinct().values_list('couse')
+#     context = {
+#         'course': courses
+#     }
+
+#     return render(request, 'records.html', context)
+
+
 def showRecords(request):
 
-    records = ScoreTable.objects.filter(course='').values('user_id').annotate(score_max=Max(
+    records = ScoreTable.objects.filter(course='100').values('user_id').annotate(score_max=Max(
         'score'), date_min=Min('date')).order_by('score_max').reverse().values(*["user_id", "score_max", 'date_min'])
+    courses = ScoreTable.objects.distinct().values_list('course')
     context = {
-        'scoretable': records
+        'scoretable': records,
+        'course': courses
     }
+
 
 # def get_course():
 #     # コースを選択する
