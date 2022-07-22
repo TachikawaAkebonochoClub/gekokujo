@@ -9,11 +9,17 @@
     <a href="{% url 'showHistory' %}" class='btn btn-outline-primary'>成長記録</a>
     <!-- <a href="{% url 'createRecord' %}" class='btn btn-outline-primary'>成績登録</a> -->
 </div>
-<select name="course">
-    <option value="">すべて</option>
-    <?= $course?>
-</select>
-<button type='submit' class='btn btn-outline-primary'>決定</button>
+<form action='{% url "showRecords" %}' method='post' class='form'>
+    <select name="course">
+        {% for c in course %}
+        {% if c == 100 %}
+        <option value="{{c}}">{{c}}</option>
+        {% endfor %}
+        <?= $course?>
+    </select>
+    <input type="submit" name="submit" value="決定" />
+</form>
+
 <table class="table table-striped table table-bordered">
     <thead align="center">
         <tr>
