@@ -11,13 +11,12 @@
 </div>
 <form action='{% url "showRecords" %}' method='post' class='form'>
     <select name="course">
-        {% for c in course %}
-        {% if c == 100 %}
-        <option value="{{c}}">{{c}}</option>
+        {% for v in course %}
+        <option value="{{v}}">{{v}}</option>
         {% endfor %}
         <?= $course?>
     </select>
-    <input type="submit" name="submit" value="決定" />
+    <button type='submit' class='btn btn-outline-primary'>決定</button>
 </form>
 
 <table class="table table-striped table table-bordered">
@@ -26,8 +25,8 @@
             <th>ユーザーID</th>
             <th>スコア</th>
             <th>日付</th>
-            <!-- <th>順位</th>
-    <th>名前</th>
+            <th>順位</th>
+            <!-- <th>名前</th>
     <th>レベル</th>
     <th>スコア</th> -->
         </tr>
@@ -38,8 +37,8 @@
             <td>{{record.user_id}}</td>
             <td>{{record.score_max}}</td>
             <td>{{record.date_min}}</td>
-            <!-- <td>{{record.rank}}位</td>
-    <td>{{record.name}}</td>
+            <td>{{record.rank}}位</td>
+            <!--<td>{{record.name}}</td>
     <td>{{record.level}}</td>
     <td>{{record.score}}点</td> -->
             </tr>
