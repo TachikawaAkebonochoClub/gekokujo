@@ -44,9 +44,7 @@ def showRecords(request):
 
     courselist = []
     for n in selectcourses:
-        for l in str(n):
-            re.sub("[()]", "", l)
-            l.replace(",", "")
+        for l in n:
             courselist.append(l)
 
     coursedic = {}
@@ -57,14 +55,14 @@ def showRecords(request):
                     k: v
                 }
                 coursedic.update(dic)
-            else:
-                dic = {
-                    'test': 'aaaa'
-                }
-                coursedic.update(dic)
+            # else:
+            #     dic = {
+            #         'test': 'error'
+            #     }
+            #     coursedic.update(dic)
     context = {
         'scoretable': records_query_set,
-        'course': courselist
+        'course': coursedic
     }
 
     return render(request, 'records.html', context)

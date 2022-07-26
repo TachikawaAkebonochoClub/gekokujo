@@ -10,9 +10,10 @@
     <!-- <a href="{% url 'createRecord' %}" class='btn btn-outline-primary'>成績登録</a> -->
 </div>
 <form action='{% url "showRecords" %}' method='post' class='form'>
+    {% csrf_token %}
     <select name="course">
-        {% for v in course %}
-        <option value="{{v}}">{{v}}</option>
+        {% for k,v in course.items %}
+        <option value="{{k}}">{{v}}</option>
         {% endfor %}
         <?= $course?>
     </select>
