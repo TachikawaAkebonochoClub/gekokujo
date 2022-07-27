@@ -73,7 +73,7 @@ def showRecords(request):
              'score': record.score_max})
     context = {
         'scoretable': records,
-        'course': coursedic
+        'course': ***()
     }
 
 ################### 以下以前のファイル ########################
