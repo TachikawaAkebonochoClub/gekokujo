@@ -12,6 +12,7 @@
 <form action='{% url "showRecords" %}' method='post' class='form'>
     {% csrf_token %}
     <select name="course">
+        <option value="0" selected>すべて</option>
         {% for k,v in course.items %}
         <option value="{{k}}">{{v}}</option>
         {% endfor %}
