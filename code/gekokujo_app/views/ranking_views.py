@@ -55,6 +55,8 @@ def showRecords(request):
     else:
         records_query_set = ScoreTable.objects.values('user_id').annotate(score_max=Max(
             'score'), date_min=Min('date')).order_by('score_max').reverse().values(*["user_id",  "name", "score_max", 'level'])
+    print('--------------------------')
+    print(records_query_set)
 
 # 以下いじってないです
     records = []
@@ -64,9 +66,7 @@ def showRecords(request):
 
     for record in records_query_set:
         score = record["score_max"]
-        print('---------')
-        print(record)
-        print(score)
+
         if scr != score:
             rank += 1 + same_rank
             scr = score
@@ -77,7 +77,9 @@ def showRecords(request):
              'name': record["name"],
              'rookie': True if record["user_id"] == int(settings.ROOKIES_ID) else False,
              'level': record["level"],
-             'score_max': score})
+             'score_max': score
+             })
+
     context = {
         'scoretable': records,
         'course': select()
@@ -179,30 +181,6 @@ def showRecords(request):
 #     # }
 
 #     return render(request, 'records.html', context)
-
-    # print('---------')
-    # print(records_query_set)
-    # records = []
-    # scr = 0
-    # rank = 0
-    # same_rank = 0
-
-    # for record in records_query_set:
-    #     if scr != record.score_max:
-    #         rank += 1 + same_rank
-    #         scr = record.score_max
-    #     elif scr == record.score_max:
-    #         same_rank += 1
-    #     records.append(
-    #         {'rank': rank,
-    #          'name': record.name,
-    #          'rookie': True if record.user_id == int(settings.ROOKIES_ID) else False,
-    #          'level': record.level,
-    #          'score': record.score_max})
-    # context = {
-    #     'scoretable': records
-    # }
-
 
 # def showRecords(request):
     # records_query_set = ScoreTable.objects.raw(RAW_SQL)
