@@ -26,7 +26,7 @@
         <tr>
             <th>順位</th>
             <th>名前</th>
-
+            <th>レベル</th>
             <th>スコア</th>
         </tr>
     </thead>
@@ -35,7 +35,7 @@
         <tr{% if record.rookie %} style="background-color: #FF5050" {% endif %}>
             <td>{{record.rank}}位</td>
             <td>{{record.name}}</td>
-
+            <td>{{record.level}}</td>
             <td>{{record.score_max}}点</td>
             </tr>
             {% endfor %}

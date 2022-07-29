@@ -48,28 +48,40 @@ def showRecords(request):
         coursenum = request.POST["course"]
         if coursenum == '0':
             records_query_set = ScoreTable.objects.values('user_id').annotate(score_max=Max(
-                'score'), date_min=Min('date')).order_by('score_max').reverse().values(*["user_id", "name", "score_max", 'level'])
+                'score'), date_min=Min('date')).order_by('score_max').reverse().values(*["user_id", "score_max", 'date_min'])
         else:
             records_query_set = ScoreTable.objects.filter(course=coursenum).values('user_id').annotate(score_max=Max(
-                'score'), date_min=Min('date')).order_by('score_max').reverse().values(*["user_id", "name", "score_max", 'level'])
+                'score'), date_min=Min('date')).order_by('score_max').reverse().values(*["user_id", "score_max", 'date_min'])
     else:
         records_query_set = ScoreTable.objects.values('user_id').annotate(score_max=Max(
-            'score'), date_min=Min('date')).order_by('score_max').reverse().values(*["user_id",  "name", "score_max", 'level'])
+            'score')).order_by('score_max').reverse().values(*["user_id", "score_max"])
+
+    set = ScoreTable.objects.values()
+
+    set_list = []
+
+    for r in records_query_set:
+        for s in set:
+            if r['user_id'] == s['user_id'] and r['score_max'] == s['score']:
+                set_list.append(s)
+
     print('--------------------------')
     print(records_query_set)
+    print(set)
+    print(set_list)
 
-# 以下いじってないです
     records = []
     scr = 0
     rank = 0
     same_rank = 0
 
-    for record in records_query_set:
-        score = record["score_max"]
+    for record in set_list:
+        score = record["score"]
 
         if scr != score:
             rank += 1 + same_rank
             scr = score
+            same_rank = 0
         elif scr == score:
             same_rank += 1
         records.append(
@@ -77,8 +89,7 @@ def showRecords(request):
              'name': record["name"],
              'rookie': True if record["user_id"] == int(settings.ROOKIES_ID) else False,
              'level': record["level"],
-             'score_max': score
-             })
+             'score_max': score})
 
     context = {
         'scoretable': records,
