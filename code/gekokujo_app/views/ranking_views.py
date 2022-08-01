@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from ..models import ScoreTable
 from django.conf import settings
 from django.db.models import Max, Min
+from operator import itemgetter
 
 ################ コース選択用関数 ####################
 
@@ -65,9 +66,21 @@ def showRecords(request):
             if r['user_id'] == s['user_id'] and r['score_max'] == s['score']:
                 set_list.append(s)
 
+    new_list = []
+    d = 0
+
+    for l in set_list:
+        if d == 0:
+            d = l
+        elif d['user_id'] == l['user_id']:
+            if d['date'] > l['date']:
+                d = l
+        elif d['user_id'] != l['user_id']:
+            new_list.append(d)
+            d = l
+    new_list.append(d)
+
     print('--------------------------')
-    print(records_query_set)
-    print(set)
     print(set_list)
 
     records = []
@@ -75,7 +88,7 @@ def showRecords(request):
     rank = 0
     same_rank = 0
 
-    for record in set_list:
+    for record in new_list:
         score = record["score"]
 
         if scr != score:
