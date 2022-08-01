@@ -80,9 +80,6 @@ def showRecords(request):
             d = l
     new_list.append(d)
 
-    print('--------------------------')
-    print(set_list)
-
     records = []
     scr = 0
     rank = 0

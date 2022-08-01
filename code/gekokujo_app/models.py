@@ -72,3 +72,10 @@ class ScoreTable(models.Model):
         max_length=10,
         blank=True
     )
+
+
+# class XxMode(Model):
+#     def get_conveted_time(self, time):
+#         self.time = str(time)
+
+#         return format("MM:SS.ff:.....", self.time)
