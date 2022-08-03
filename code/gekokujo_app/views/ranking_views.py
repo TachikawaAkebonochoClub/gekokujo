@@ -80,6 +80,16 @@ def showRecords(request):
             d = l
     new_list.append(d)
 
+    # new_list = {}
+
+    # for l in set_list:
+    # # 既に辞書に存在し、現在より古いようならSkip
+    # if l["user_id"] in new_list and l[date] > new_list[user_id][date]:
+    #     continue
+    # # 辞書を更新
+    # new_list[user_id] = l
+    # return new_list.values()
+
     records = []
     scr = 0
     rank = 0
